@@ -1,0 +1,224 @@
+\documentclass[UTF8,a4paper,11pt]{ctexart}
+
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+\title{Fourier Analysis: From Summation to Integration}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+The transition from a \textbf{summation} ($\sum$) to an \textbf{integral} ($\int$) happens when the number of terms becomes very large and the spacing between them becomes infinitesimally small --- a key idea in calculus and applied math (e.g., Fourier analysis, probability, physics).
+
+The picture you shared has \textbf{``Summation Discrete''} at the bottom, pointing toward \textbf{``Continuous''} above $\int$ --- this visually captures the idea:
+
+\bigskip\noindent\rule{\linewidth}{0.4pt}\bigskip
+
+\section{Summation of discrete terms}
+
+A finite or infinite sum over discrete indices $k$:
+
+\[
+\sum_{k=1}^{n} f(x_k) \, \Delta x
+\]
+
+If $\Delta x$ is the spacing between successive $x_k$ values,
+then as $n \to \infty$ and $\Delta x \to 0$,
+the \textbf{Riemann sum} becomes an integral:
+
+\[
+\sum_{k=1}^{n} f(x_k) \, \Delta x \quad \longrightarrow \quad \int_{a}^{b} f(x) \, dx
+\]
+
+\bigskip\noindent\rule{\linewidth}{0.4pt}\bigskip
+
+\section{Physical intuition (from your notes)}
+
+Your sheet has a sequence:
+
+\[
+A_1 \to A_2 \to A_3 \to \dots
+\]
+and
+\[
+A_1 + A_2 + A_3 + \dots
+\]
+
+If these $A_n$ represent amplitudes (like in Fourier series), then:
+
+\begin{itemize}
+  \item \textbf{Discrete Fourier series}:
+  \[
+  f(t) = \sum_{n=-\infty}^{\infty} c_n e^{in\omega_0 t}
+  \]
+
+  \item As the period $T \to \infty$, the fundamental frequency $\omega_0 = 2\pi/T \to 0$,
+  discrete frequency steps merge into a continuum.
+  Then:
+  \[
+  \sum_{n=-\infty}^{\infty} c_n e^{in\omega_0 t} \quad \longrightarrow \quad \int_{-\infty}^{\infty} F(\omega) e^{i\omega t} \, d\omega
+  \]
+\end{itemize}
+
+This is exactly the \textbf{Fourier transform} derived from the Fourier series by turning the sum into an integral.
+
+\bigskip\noindent\rule{\linewidth}{0.4pt}\bigskip
+
+\section{Why do this?}
+
+\begin{itemize}
+  \item Integrals handle \textbf{continuous spectra} (e.g., a non-periodic signal).
+  \item Sums handle \textbf{discrete spectra} (periodic signals).
+  \item The equation $\sum \to \int$ unifies both cases in the limit.
+\end{itemize}
+
+\bigskip\noindent\rule{\linewidth}{0.4pt}\bigskip
+
+So in your notation:
+\[
+\sum \text{(Discrete)} \xrightarrow{\text{limit of small spacing}} \int \text{(Continuous)}
+\]
+
+Thanks for sharing the second image --- it contains a lot of handwritten notes that blend \textbf{Fourier transforms}, \textbf{Laplace transforms}, and \textbf{damped oscillations}. Let me break it down piece by piece.
+
+\bigskip\noindent\rule{\linewidth}{0.4pt}\bigskip
+
+\section{Top-left: Limit \& Fourier Transform}
+
+\noindent\textit{lim $t \to \infty$ then Fourier Transform}
+
+This suggests: as time grows large, we often look at frequency content using the Fourier transform.
+
+The Fourier transform given is:
+
+\[
+\int_{-\infty}^{\infty} F(t) e^{-j\omega t} \, dt
+\]
+
+This transforms a time-domain signal $F(t)$ into the frequency domain.
+
+\bigskip\noindent\rule{\linewidth}{0.4pt}\bigskip
+
+\section{Euler's formula (center-left)}
+
+\[
+e^{j\omega t} = \cos(\omega t) + j\sin(\omega t)
+\]
+\[
+e^{-j\omega t} = \cos(\omega t) - j\sin(\omega t)
+\]
+
+These are used to represent oscillatory behavior in terms of complex exponentials.
+
+\bigskip\noindent\rule{\linewidth}{0.4pt}\bigskip
+
+\section{Damped oscillator equation (center)}
+
+\[
+m\ddot{x} + b\dot{x} + Kx = 0
+\]
+
+That's a \textbf{spring-mass-damper} system.
+
+The solution is written:
+
+\[
+x(t) = e^{-jwt} (A \sin(\omega t + \phi))
+\]
+
+\emph{Wait} --- this has a small error:
+For a damped oscillator, the correct form is usually:
+
+\[
+x(t) = e^{-\zeta \omega_n t} \big(A \cos(\omega_d t) + B \sin(\omega_d t)\big)
+\]
+
+Here they wrote $e^{-j\omega t}$ instead of a real exponential decay $e^{-\sigma t}$. That suggests they are either:
+
+\begin{itemize}
+  \item Confusing \textbf{oscillation} $e^{j\omega t}$ with \textbf{decay}, or
+  \item Using a \textbf{complex frequency} $s = \sigma + j\omega$ such that $e^{-j\omega t}$ is just the oscillatory part, while the real decay is hidden in the amplitude $A$ (not ideal notation).
+\end{itemize}
+
+\bigskip\noindent\rule{\linewidth}{0.4pt}\bigskip
+
+\section{Laplace transform (right side)}
+
+Two equivalent forms written:
+
+\[
+\int_{0}^{\infty} f(t) e^{-st} \, dt
+\]
+and
+\[
+\int_{0}^{\infty} F(s) e^{-st} \, ds
+\]
+
+The second one is \textbf{incorrect} --- that's the inverse Laplace transform.
+Actually, the forward Laplace is:
+
+\[
+F(s) = \int_{0}^{\infty} f(t) e^{-st} \, dt
+\]
+
+\bigskip\noindent\rule{\linewidth}{0.4pt}\bigskip
+
+\section{S-plane diagram (bottom right)}
+
+They draw the \textbf{complex s-plane}:
+
+\begin{itemize}
+  \item Horizontal axis: $\text{Re}$ (real part $= \sigma$) --- corresponds to \textbf{growth/decay}
+  \item Vertical axis: $\text{Im}$ (imag part $= \omega$) --- corresponds to \textbf{oscillation frequency}
+\end{itemize}
+
+This is where Laplace transforms live:
+$s = \sigma + j\omega$
+
+\bigskip\noindent\rule{\linewidth}{0.4pt}\bigskip
+
+\section{Bottom-left ``Simulation Discrete / Summation Continuous''}
+
+This is hard to read fully, but likely refers to:
+
+\begin{itemize}
+  \item \textbf{Discrete simulation} = numerical approximation (e.g., discrete time steps)
+  \item \textbf{Summation $\to$ Continuous} = replacing a sum with an integral (connecting back to your first image)
+\end{itemize}
+
+They seem to be showing the \textbf{two perspectives}:
+
+\begin{itemize}
+  \item Discrete: $\sum$
+  \item Continuous: $\int$
+\end{itemize}
+
+\bigskip\noindent\rule{\linewidth}{0.4pt}\bigskip
+
+\section{Overall meaning of the picture}
+
+This is a \textbf{summary sheet} connecting:
+
+\begin{enumerate}
+  \item \textbf{Fourier transform} (oscillations only, $s = j\omega$, no decay)
+  \item \textbf{Laplace transform} (oscillations + growth/decay, $s = \sigma + j\omega$)
+  \item \textbf{Mechanical oscillator} as the physical example
+  \item \textbf{Discrete vs continuous} summation/integration as a unifying theme
+\end{enumerate}
+
+It's messy but shows the thought process of someone linking:
+\begin{itemize}
+  \item Time domain $\leftrightarrow$ frequency domain
+  \item Summation $\leftrightarrow$ integration
+  \item Real exponentials $\leftrightarrow$ complex exponentials
+\end{itemize}
+
+Would you like me to redraw this cleanly with the corrected equations?
+
+\end{document}
