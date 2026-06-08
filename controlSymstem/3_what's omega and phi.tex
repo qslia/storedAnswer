@@ -1,0 +1,128 @@
+\documentclass[UTF8,a4paper,11pt]{ctexart}
+
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+\title{What are $A$, $\omega$, and $\phi$?}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+In
+
+\[
+x(t)=A\cos(\omega t+\phi)
+\]
+
+each symbol has a physical meaning:
+
+\subsection{$A$ — Amplitude}
+
+The maximum displacement from equilibrium.
+
+\begin{itemize}
+  \item If $A=5$ cm, the mass moves between $+5$ cm and $-5$ cm.
+\end{itemize}
+
+\bigskip\noindent\rule{\linewidth}{0.4pt}\bigskip
+
+\subsection{$\omega$ — Angular Frequency}
+
+Measures \textbf{how fast the oscillation occurs}.
+
+\[
+\omega = 2\pi f
+\]
+
+where $f$ is the frequency in Hz (cycles per second).
+
+For a spring-mass system:
+
+\[
+\omega=\sqrt{\frac{k}{m}}
+\]
+
+Interpretation:
+
+\begin{itemize}
+  \item Larger spring constant $k$ $\rightarrow$ stiffer spring $\rightarrow$ faster oscillation.
+  \item Larger mass $m$ $\rightarrow$ heavier object $\rightarrow$ slower oscillation.
+\end{itemize}
+
+Example:
+
+\[
+\omega=2\pi
+\]
+
+means the system completes 1 cycle every second.
+
+\bigskip\noindent\rule{\linewidth}{0.4pt}\bigskip
+
+\subsection{$\phi$ — Phase Angle (Initial Phase)}
+
+Tells you \textbf{where the oscillation starts at $t=0$}.
+
+For example:
+
+\[
+x(t)=A\cos(\omega t)
+\]
+
+At $t=0$,
+
+\[
+x(0)=A
+\]
+
+The mass starts at the top.
+
+But if
+
+\[
+x(t)=A\cos\left(\omega t+\frac{\pi}{2}\right)
+\]
+
+then
+
+\[
+x(0)=0
+\]
+
+The mass starts at the center instead.
+
+So $\phi$ shifts the wave left or right in time.
+
+\bigskip\noindent\rule{\linewidth}{0.4pt}\bigskip
+
+A useful visualization:
+
+\begin{center}
+\begin{tabular}{lll}
+  \toprule
+  Symbol & Meaning & Controls \\
+  \midrule
+  $A$ & Amplitude & How far it moves \\
+  $\omega$ & Angular frequency & How fast it oscillates \\
+  $\phi$ & Phase angle & Where it starts \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+Think of a Ferris wheel:
+
+\begin{itemize}
+  \item $A$ = radius of the wheel
+  \item $\omega$ = how fast the wheel spins
+  \item $\phi$ = where your seat is when the clock starts
+\end{itemize}
+
+That's why the solution of the spring equation $m\ddot{x}+kx=0$ is a sinusoid: the mass keeps exchanging energy between spring potential energy and kinetic energy, producing continuous oscillation.
+
+\end{document}

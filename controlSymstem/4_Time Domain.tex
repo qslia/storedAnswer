@@ -1,0 +1,132 @@
+\documentclass[UTF8,a4paper,11pt]{ctexart}
+
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+\title{时域与频域：周期 $T$ 的含义}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+在这张图里，\textbf{$T_1$ 和 $T_2$ 代表两个不同正弦波的周期（Period）}。
+
+左下角画的是：
+
+\[
+A_1\sin\left(\frac{2\pi}{T_1}t\right)
+\]
+
+和
+
+\[
+A_2\sin\left(\frac{2\pi}{T_2}t\right)
+\]
+
+它们相加后形成中间那个更复杂的波形。
+
+\bigskip\noindent\rule{\linewidth}{0.4pt}\bigskip
+
+\subsection{什么是周期 $T$？}
+
+周期表示：
+
+\begin{quote}
+\textbf{完成一次完整振动所需要的时间。}
+\end{quote}
+
+例如：
+
+\begin{itemize}
+  \item $T=1\,\mathrm{s}$ $\rightarrow$ 每 1 秒振动一次
+  \item $T=0.1\,\mathrm{s}$ $\rightarrow$ 每 0.1 秒振动一次
+\end{itemize}
+
+周期越小：
+
+\begin{itemize}
+  \item 振动越快
+  \item 频率越高
+\end{itemize}
+
+\bigskip\noindent\rule{\linewidth}{0.4pt}\bigskip
+
+\subsection{频率和周期的关系}
+
+\[
+f=\frac{1}{T}
+\]
+
+例如：
+
+\begin{center}
+\begin{tabular}{cc}
+  \toprule
+  周期 $T$ & 频率 $f$ \\
+  \midrule
+  1 s & 1 Hz \\
+  0.5 s & 2 Hz \\
+  0.1 s & 10 Hz \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+\bigskip\noindent\rule{\linewidth}{0.4pt}\bigskip
+
+\subsection{图中为什么写 $1/T_1$ 和 $1/T_2$？}
+
+右边其实是在引入\textbf{频域（Frequency Domain）}。
+
+时域中：
+
+\begin{itemize}
+  \item 黄色大波：振幅 $A_1$，周期 $T_1$
+  \item 黄色小波：振幅 $A_2$，周期 $T_2$
+\end{itemize}
+
+相加后得到复杂波形。
+
+频域中：
+
+\begin{itemize}
+  \item 在频率 $1/T_1$ 处有一个峰值 $A_1$
+  \item 在频率 $1/T_2$ 处有一个峰值 $A_2$
+\end{itemize}
+
+意思是：
+
+\begin{quote}
+这个复杂波形实际上由两个频率成分组成。
+\end{quote}
+
+\bigskip\noindent\rule{\linewidth}{0.4pt}\bigskip
+
+这正是控制工程里从\textbf{时域（Time Domain）}到\textbf{频域（Frequency Domain）}的核心思想。
+
+时域看到的是：
+
+\begin{itemize}
+  \item 一条复杂曲线
+\end{itemize}
+
+频域看到的是：
+
+\begin{itemize}
+  \item 「里面包含哪些振动频率，以及每个频率有多强」
+\end{itemize}
+
+就像音乐：
+
+\begin{itemize}
+  \item 时域：麦克风录到的声音波形
+  \item 频域：低音 100 Hz、中音 1000 Hz、高音 5000 Hz 各有多少能量
+\end{itemize}
+
+图里的 $T_1$、$T_2$ 就是在为后面要学的 \textbf{傅里叶变换（Fourier Transform）} 和 \textbf{Bode Plot（波特图）} 做铺垫。控制系统中的 $G(s)$ 最终经常就是在频域里分析的。
+
+\end{document}

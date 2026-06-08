@@ -1,0 +1,111 @@
+\documentclass[UTF8,a4paper,11pt]{ctexart}
+
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+\begin{document}
+
+在这张图右下角，你看到的是弹簧-质量系统的经典方程：
+
+\[
+m\ddot{x} = -kx
+\]
+
+其中：
+
+\begin{itemize}
+  \item $x$：位移（position），表示物体偏离平衡位置多少
+  \item $\dot{x}$：速度（velocity），表示位移对时间的一阶导数
+  \item $\ddot{x}$（读作 \emph{x double dot}）：加速度（acceleration），表示位移对时间的二阶导数
+\end{itemize}
+
+可以写成：
+
+\[
+\dot{x}=\frac{dx}{dt}
+\]
+
+\[
+\ddot{x}=\frac{d^2x}{dt^2}
+\]
+
+或者用牛顿第二定律理解：
+
+\[
+F=ma
+\]
+
+所以
+
+\[
+m\ddot{x}
+\]
+
+其实就是质量 $m$ 乘以加速度 $a$。
+
+\bigskip\noindent\rule{\linewidth}{0.4pt}\bigskip
+
+这个弹簧系统里：
+
+弹簧产生恢复力
+
+\[
+F=-kx
+\]
+
+（这叫胡克定律）
+
+负号表示：
+
+\begin{itemize}
+  \item 往上拉（$x>0$）时，弹簧往下拉
+  \item 往下压（$x<0$）时，弹簧往上推
+\end{itemize}
+
+因此：
+
+\[
+m\ddot{x}=-kx
+\]
+
+整理得
+
+\[
+\ddot{x}+\frac{k}{m}x=0
+\]
+
+这个方程的解是正弦波：
+
+\[
+x(t)=A\cos(\omega t+\phi)
+\]
+
+说明物体会一直上下振动。
+
+\bigskip\noindent\rule{\linewidth}{0.4pt}\bigskip
+
+结合你前面问的 \textbf{$G(s)$ 到底是什么}，这里其实就能看到控制理论的来源：
+
+\begin{itemize}
+  \item $x(t)$ 是时域里的位移
+  \item $\ddot{x}(t)$ 是时域里的加速度
+  \item 微分方程 $m\ddot{x}=-kx$ 描述系统运动规律
+\end{itemize}
+
+把这个方程做拉普拉斯变换后，就能得到系统传递函数 $G(s)$。
+
+所以：
+
+\begin{quote}
+\textbf{$x$ 是系统的输出（位移），$\ddot{x}$ 是输出变化的速度再变化一次（加速度），而 $G(s)$ 是把输入力和输出位移联系起来的数学模型。}
+\end{quote}
+
+控制工程学的很多内容，本质上都是在研究这种弹簧、汽车悬架、电机、无人机等动态系统的运动规律。
+
+
+
+\end{document}
