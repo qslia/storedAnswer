@@ -1,0 +1,504 @@
+\documentclass[UTF8,a4paper,11pt]{ctexart}
+
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+\title{控制系统：框图化简与 $G(s)$ 的含义}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+这张表总结了\textbf{控制系统框图（Block Diagram）等效变换的 10 条基本规则}，用于将复杂控制系统逐步化简成单个传递函数。
+
+\bigskip\noindent\rule{\linewidth}{0.4pt}\bigskip
+
+\subsection{1. 串联（Cascade）}
+
+原框图：
+\[
+X \rightarrow G_1 \rightarrow G_2 \rightarrow Y
+\]
+
+等效：
+\[
+G_{\mathrm{eq}}=G_1G_2
+\]
+
+\textbf{规律：} 串联模块直接相乘。
+
+\bigskip\noindent\rule{\linewidth}{0.4pt}\bigskip
+
+\subsection{2. 并联（Parallel）}
+
+原框图：
+\[
+Y=G_1X+G_2X
+\]
+
+等效：
+\[
+G_{\mathrm{eq}}=G_1+G_2
+\]
+
+\textbf{规律：} 并联模块直接相加（减号则相减）。
+
+\bigskip\noindent\rule{\linewidth}{0.4pt}\bigskip
+
+\subsection{3. 提取公共模块}
+
+将
+\[
+Y=G_1X+G_2X
+\]
+改写为
+\[
+Y=G_2\left(X+\frac{G_1}{G_2}X\right)
+\]
+
+\textbf{作用：} 为进一步化简创造条件。
+
+\bigskip\noindent\rule{\linewidth}{0.4pt}\bigskip
+
+\subsection{4. 消除反馈环（最重要）}
+
+负反馈系统：
+\[
+Y=G_1(X-G_2Y)
+\]
+
+化简得到：
+\[
+G_{\mathrm{eq}}=\frac{G_1}{1+G_1G_2}
+\]
+
+正反馈则为：
+\[
+G_{\mathrm{eq}}=\frac{G_1}{1-G_1G_2}
+\]
+
+这是控制系统中最常用的公式。
+
+\bigskip\noindent\rule{\linewidth}{0.4pt}\bigskip
+
+\subsection{5. 从反馈回路中移出模块}
+
+用于把反馈通道中的模块移到前向通道或反之。
+
+核心思想：
+\[
+G_1(X\pm G_2Y)
+\]
+
+通过调整结构保持输入输出关系不变。
+
+\bigskip\noindent\rule{\linewidth}{0.4pt}\bigskip
+
+\subsection{6. 调整加法点顺序}
+
+原式：
+\[
+Z=W\pm X\pm Y
+\]
+
+无论先加哪个信号：
+\[
+(W\pm X)\pm Y=(W\pm Y)\pm X
+\]
+
+结果相同。
+
+\bigskip\noindent\rule{\linewidth}{0.4pt}\bigskip
+
+\subsection{7. 加法点前移（跨过模块）}
+
+原结构：
+\[
+Z=GX\pm Y
+\]
+
+如果把求和点移到模块前面，$Y$ 必须经过 $\frac{1}{G}$ 补偿。
+
+原因：模块 $G$ 会同时作用于两个输入。
+
+\bigskip\noindent\rule{\linewidth}{0.4pt}\bigskip
+
+\subsection{8. 加法点后移（跨过模块）}
+
+原结构：
+\[
+(X\pm Y)\rightarrow G
+\]
+
+变换后：
+\[
+GX \pm GY
+\]
+
+即：
+\[
+G(X\pm Y)=GX\pm GY
+\]
+
+\bigskip\noindent\rule{\linewidth}{0.4pt}\bigskip
+
+\subsection{9. 分支点前移}
+
+若分支点从模块后移到模块前，需要在新分支上增加一个 $G$。
+
+原因：原分支信号是 $GX$。
+
+\bigskip\noindent\rule{\linewidth}{0.4pt}\bigskip
+
+\subsection{10. 分支点后移}
+
+若分支点从模块前移到模块后，需要增加 $\frac{1}{G}$ 补偿。
+
+\bigskip\noindent\rule{\linewidth}{0.4pt}\bigskip
+
+\section{考试最常考的三条}
+
+\begin{enumerate}
+  \item \textbf{串联相乘}
+  \[
+  G=G_1G_2
+  \]
+
+  \item \textbf{并联相加}
+  \[
+  G=G_1+G_2
+  \]
+
+  \item \textbf{反馈化简}
+  \[
+  G=\frac{G_1}{1+G_1H} \quad \text{（负反馈）}
+  \]
+  \[
+  G=\frac{G_1}{1-G_1H} \quad \text{（正反馈）}
+  \]
+\end{enumerate}
+
+如果你正在学习\textbf{控制系统、自动控制原理或信号与系统}，掌握这 10 条规则后，绝大多数框图化简题都可以通过“串联 $\rightarrow$ 并联 $\rightarrow$ 消反馈 $\rightarrow$ 调整加法点和分支点”的顺序一步步求出总传递函数。
+
+\bigskip\noindent\rule{\linewidth}{0.4pt}\bigskip
+
+这是很多人学控制系统时最困惑的地方。
+
+因为教材一上来就写：
+\[
+G(s)=\frac{Y(s)}{X(s)}
+\]
+
+然后开始推公式，但从来不解释：
+
+\begin{quote}
+\textbf{这个 $G(s)$ 到底是什么东西？}
+\end{quote}
+
+其实最直观的理解是：
+
+\begin{quote}
+\textbf{$G(s)$ 描述了一个系统对输入信号的反应规律。}
+\end{quote}
+
+你可以暂时忘掉拉普拉斯变换，把 $G(s)$ 看成一个“输入$\rightarrow$输出转换器”。
+
+\bigskip\noindent\rule{\linewidth}{0.4pt}\bigskip
+
+\subsection{先从最简单的例子开始}
+
+假设有一个黑盒：
+
+\begin{verbatim}
+输入 x
+ ↓
+[黑盒]
+ ↓
+输出 y
+\end{verbatim}
+
+如果：
+
+\begin{verbatim}
+输入 2    输出 10
+输入 3    输出 15
+输入 4    输出 20
+\end{verbatim}
+
+你会发现：
+\[
+y=5x
+\]
+
+那么这个黑盒的增益就是
+\[
+G=5
+\]
+
+意思是：
+
+\begin{quote}
+输入放大 5 倍输出。
+\end{quote}
+
+\bigskip\noindent\rule{\linewidth}{0.4pt}\bigskip
+
+\subsection{电机例子}
+
+假设：
+
+\begin{verbatim}
+输入电压
+ ↓
+电机
+ ↓
+转速
+\end{verbatim}
+
+实验发现：
+
+\begin{center}
+\begin{tabular}{cc}
+\toprule
+电压 (V) & 转速 (rpm) \\
+\midrule
+1 & 100 \\
+2 & 200 \\
+3 & 300 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+那么：
+\[
+\text{转速}=100\times \text{电压}
+\]
+
+于是可以写：
+\[
+G=100
+\]
+
+$G$ 表示：
+
+\begin{quote}
+电机把电压转换成转速的能力。
+\end{quote}
+
+\bigskip\noindent\rule{\linewidth}{0.4pt}\bigskip
+
+\subsection{为什么后来变成 $G(s)$？}
+
+现实系统不是立刻响应。
+
+例如：你给电机 10V。
+
+理想情况：
+
+\begin{verbatim}
+t=0    转速=1000rpm
+\end{verbatim}
+
+现实情况：
+
+\begin{verbatim}
+t=0      0rpm
+t=1s   500rpm
+t=2s   800rpm
+t=3s   950rpm
+t=4s 1000rpm
+\end{verbatim}
+
+速度是慢慢爬上去的。
+
+所以系统不仅有：
+
+\begin{itemize}
+  \item 放大倍数
+\end{itemize}
+
+还有：
+
+\begin{itemize}
+  \item 响应速度
+  \item 延迟
+  \item 振荡
+\end{itemize}
+
+这些特性。
+
+一个数字 $G$ 已经描述不了。
+
+于是需要 $G(s)$。
+
+\bigskip\noindent\rule{\linewidth}{0.4pt}\bigskip
+
+\subsection{一阶系统}
+
+最常见的电机模型：
+\[
+G(s)=\frac{K}{Ts+1}
+\]
+
+其中：
+
+\begin{itemize}
+  \item $K$ = 最终放大倍数
+  \item $T$ = 响应快慢
+\end{itemize}
+
+例如：
+\[
+G(s)=\frac{10}{2s+1}
+\]
+
+意思：
+
+\begin{itemize}
+  \item 最终输出是输入的 10 倍
+  \item 需要大约 2 秒才能跟上
+\end{itemize}
+
+所以 $G(s)$ 不仅告诉你放大多少，还告诉你：
+
+\begin{quote}
+\textbf{多久达到这个结果。}
+\end{quote}
+
+\bigskip\noindent\rule{\linewidth}{0.4pt}\bigskip
+
+\subsection{汽车的例子}
+
+油门：
+
+\begin{verbatim}
+输入：油门开度
+\end{verbatim}
+
+车速：
+
+\begin{verbatim}
+输出：车速
+\end{verbatim}
+
+现实情况，踩到底后：
+
+\begin{verbatim}
+0s    0km/h
+2s   20km/h
+5s   60km/h
+10s 100km/h
+\end{verbatim}
+
+汽车不会瞬间达到 100km/h。
+
+因此汽车可以抽象成：
+
+\begin{verbatim}
+油门
+ ↓
+G(s)
+ ↓
+车速
+\end{verbatim}
+
+这里的 $G(s)$ 就是：
+
+\begin{quote}
+这辆车的动力学特性。
+\end{quote}
+
+\bigskip\noindent\rule{\linewidth}{0.4pt}\bigskip
+
+\subsection{为什么控制系统全是 $G_1$、$G_2$、$G_3$？}
+
+因为工程师喜欢把复杂系统拆开。
+
+例如无人机：
+
+\begin{verbatim}
+控制器
+ ↓
+电机
+ ↓
+机体
+ ↓
+传感器
+\end{verbatim}
+
+对应：
+
+\begin{verbatim}
+Gc(s)
+ ↓
+Gm(s)
+ ↓
+Gp(s)
+ ↓
+H(s)
+\end{verbatim}
+
+其中：
+
+\begin{itemize}
+  \item $G_c$ 控制器
+  \item $G_m$ 电机
+  \item $G_p$ 机体
+  \item $H$ 传感器
+\end{itemize}
+
+每个模块都表示：
+
+\begin{quote}
+输入经过这个部分后会怎样变化。
+\end{quote}
+
+\bigskip\noindent\rule{\linewidth}{0.4pt}\bigskip
+
+\subsection{最直观的一句话}
+
+学框图时，你可以把 $G(s)$ 直接理解成：
+
+\begin{quote}
+\textbf{某个设备、某个部件、某个过程的“行为说明书”。}
+\end{quote}
+
+例如：
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+$G(s)$ & 代表 \\
+\midrule
+电机 $G(s)$ & 电压$\rightarrow$转速 \\
+汽车 $G(s)$ & 油门$\rightarrow$车速 \\
+空调 $G(s)$ & 功率$\rightarrow$温度 \\
+飞机 $G(s)$ & 舵角$\rightarrow$姿态 \\
+音响 $G(s)$ & 输入电压$\rightarrow$声音 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+框图里的每个方块，其实都在回答：
+
+\begin{quote}
+给它一个输入，它会怎样随时间产生输出？
+\end{quote}
+
+而整个框图化简，就是把许多个“小行为说明书”合并成一个“大行为说明书”，最终得到：
+\[
+\frac{Y(s)}{R(s)}
+\]
+
+也就是：
+
+\begin{quote}
+从输入到最终输出，整个系统到底会怎么表现。
+\end{quote}
+
+\end{document}
